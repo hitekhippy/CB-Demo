@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Install Terraform') {
       steps {
-        sh "sudo apt-get install terraform -y"
+        sh "apt-get install terraform -y"
         }
 }
     stage('Terraform Init') {
