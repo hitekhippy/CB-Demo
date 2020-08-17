@@ -14,8 +14,8 @@ pipeline {
     stage('Install Terraform')
       steps {
         sh "wget https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip && unzip ./terraform_0.12.29_linux_amd64.zip -d /usr/local/bin"
-        }
-  }  
+      }
+    }  
     stage('Terraform Init') {
       steps {
         sh "terraform init -input=false"
