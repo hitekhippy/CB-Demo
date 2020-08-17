@@ -11,11 +11,6 @@ pipeline {
   }
   agent any 
   stages {
-    stage('Install Terraform') {
-      steps {
-        sh "apt-get install terraform -y"
-        }
-}
     stage('Terraform Init') {
       steps {
         sh "${env.TERRAFORM_HOME}/terraform init -input=false"
