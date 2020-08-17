@@ -10,6 +10,11 @@ pipeline {
     AWS_SECRET_ACCESS_KEY = "${params.AWS_SECRET_ACCESS_KEY}"
   }
   stages {
+    stage('Install Terraform') {
+      steps {
+        sh "sudo apt-get install terraform -y"
+        }
+}
     stage('Terraform Init') {
       steps {
         sh "${env.TERRAFORM_HOME}/terraform init -input=false"
