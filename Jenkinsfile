@@ -17,10 +17,12 @@ pipeline {
         sh "terraform plan -out=tfplan-to-apply -input=false" //-var-file='dev.tfvars'"
       }
     }
-    // stage('Terraform Apply') {
-    //   steps {
-    //     input 'Apply Plan'
-    //     sh "terraform apply -input=false tfplan-to-apply"
+    stage('Terraform Apply') {
+      steps {
+        input 'Apply Plan'
+        sh "terraform apply -input=false tfplan-to-apply"
+      }
+    }
     stage('Run Cloud Custodian to govern the resources') {
       steps {
         sh "custodian run -s out ./resources.yaml -r us-east-2"
