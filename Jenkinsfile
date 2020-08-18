@@ -23,9 +23,8 @@ pipeline {
     //     sh "terraform apply -input=false tfplan-to-apply"
       }
     }
-       stage('Run Cloud Custodian to govern the resources') {
-         steps {
-            // input 'custodian'
-            sh "custodian -h"
+    stage('Run Cloud Custodian to govern the resources') {
+      steps {
+        sh "custodian -h"
   }
 }
