@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    TF_WORKSPACE_ENV = 'default'
+    // TF_WORKSPACE_ENV = 'default'
     TF_IN_AUTOMATION = 'true'
     AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_ACCESS_KEY")
@@ -12,23 +12,25 @@ pipeline {
         sh "terraform init -input=false"
       }
     }
-    stage('Terraform Workspace') {
-      when{
-        branch 'master'
-      }
-      steps {
+    stage('Terraform Prod Workspace') {
+       when{
+         branch 'master'
+       }
+       steps {
         sh "terraform workspace new prod || true && terraform workspace select prod"
       }
+    }
+    stage('Terraform Dev Workspace') {
        when{
-        branch 'develop'
-      }
-      steps {
+         branch 'develop'
+       }
+       steps {
         sh "terraform workspace new dev || true && terraform workspace select dev"
       }
     }
     stage('Terraform Plan') {
       steps {
-        sh "terraform plan -out=tfplan-to-apply -input=false" //-var-file='dev.tfvars'"
+        sh "terraform plan -out=tfplan-to-apply -input=false"
       }
     }
     stage('Terraform Apply') {
