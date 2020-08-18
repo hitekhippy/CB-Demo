@@ -1,0 +1,14 @@
+policies:
+  - name: ec2-tag-compliance-notify
+    resource: ec2
+    comment: |
+      Find all ec2 volumes that are not conformant
+      to tagging policies, and notify
+    filters:
+      - State.Name: running
+      - or: 
+        - "tag:Tech": absent
+    actions:
+        - type: tag
+          key: "Tech"
+          value: "K8s"
