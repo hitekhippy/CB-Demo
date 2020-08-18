@@ -14,24 +14,18 @@ pipeline {
     }
     stage('Terraform Plan') {
       steps {
-        sh "terraform plan -out=tfplan -input=false" //-var-file='dev.tfvars'"
+        sh "terraform plan -out=tfplan-to-apply -input=false" //-var-file='dev.tfvars'"
       }
     }
-    stage('Terraform Apply') {
-      steps {
-        input 'Apply Plan'
-        sh "terraform apply -input=false tfplan"
+    // stage('Terraform Apply') {
+    //   steps {
+    //     input 'Apply Plan'
+    //     sh "terraform apply -input=false tfplan-to-apply"
       }
     }
-    stage('AWSpec Tests') {
-      steps {
-          sh '''#!/bin/bash -l
-bundle install --path ~/.gem
-bundle exec rake spec || true
-'''
-
-        junit(allowEmptyResults: true, testResults: '**/testResults/*.xml')
-      }
-    }
+       stage('Run Cloud Custodian to govern the resources') {
+         steps {
+            // input 'custodian'
+            sh "custodian -h"
   }
 }
