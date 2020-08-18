@@ -28,5 +28,3 @@ pipeline {
         sh "custodian -h"
   }
 }
-}
-}
