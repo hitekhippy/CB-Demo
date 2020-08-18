@@ -7,11 +7,11 @@ pipeline {
   }
   agent any 
   stages {
-     stage('CleanWorkspace') {
-       steps {
-           cleanWs()
-          }
-        }
+    //  stage('CleanWorkspace') {
+    //    steps {
+    //        cleanWs()
+    //       }
+    //     }
     stage('Terraform Init') {
       steps {
         sh "terraform init -input=false"
