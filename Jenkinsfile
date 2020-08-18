@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    // TF_WORKSPACE = 'dev'
+    TF_WORKSPACE_ENV = 'default'
     TF_IN_AUTOMATION = 'true'
     AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_ACCESS_KEY")
@@ -10,6 +10,14 @@ pipeline {
     stage('Terraform Init') {
       steps {
         sh "terraform init -input=false"
+      }
+    }
+    stage('Terraform Workspace') {
+      when{
+        branch 'master'
+      }
+      steps {
+        sh "terraform workspace new prod"
       }
     }
     stage('Terraform Plan') {
