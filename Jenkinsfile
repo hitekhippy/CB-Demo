@@ -23,7 +23,7 @@ pipeline {
     //     sh "terraform apply -input=false tfplan-to-apply"
     stage('Run Cloud Custodian to govern the resources') {
       steps {
-        sh "custodian -h"
+        sh "custodian run -s out ./resources.yaml -r us-east-2"
       }
     }
   }
