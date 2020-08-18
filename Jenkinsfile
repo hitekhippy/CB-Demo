@@ -17,7 +17,13 @@ pipeline {
         branch 'master'
       }
       steps {
-        sh "terraform workspace new prod"
+        sh "terraform workspace new prod || true && terraform workspace select prod"
+      }
+       when{
+        branch 'develop'
+      }
+      steps {
+        sh "terraform workspace new dev || true && terraform workspace select dev"
       }
     }
     stage('Terraform Plan') {
