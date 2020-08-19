@@ -1,17 +1,11 @@
 pipeline {
   environment {
-    // TF_WORKSPACE_ENV = 'default'
     TF_IN_AUTOMATION = 'true'
     AWS_ACCESS_KEY_ID = credentials("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = credentials("AWS_SECRET_ACCESS_KEY")
   }
   agent any 
   stages {
-    //  stage('CleanWorkspace') {
-    //    steps {
-    //        cleanWs()
-    //       }
-    //     }
     stage('Terraform Init') {
       steps {
         sh "terraform init -input=false"
